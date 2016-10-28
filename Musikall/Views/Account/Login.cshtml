@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+@model Musikall.Models.LoginModel
+
+@{
+    ViewBag.Title = "Sign in";
+}
+
+
+<div class="divSignBack" style="background-image: url('/Images/Cover/signCover.png')">
+    <div class="divSignUp">
+        <div class="divSignUpWrap">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <fieldset>
+                    <legend>Sign in</legend>
+
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <h3 class="field-validation-error-color">@ViewBag.ErrorMessage</h3>
+                    }
+                    else
+                    {
+                        <h3>Sign in</h3>
+                    }
+
+                    <ol>
+                        <li>
+                            @Html.LabelFor(m => m.UserName)
+                            @Html.ValidationMessageFor(m => m.UserName)
+                            @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Username or email" })
+                        </li>
+                        <li>
+                            @Html.LabelFor(m => m.Password)
+                            @Html.ValidationMessageFor(m => m.Password)
+                            @Html.PasswordFor(m => m.Password, new { @placeholder = "At least 6 characters" })
+                        </li>
+                        <li>
+                            <div class="float-left divRemember">
+                                <h3 class="float-left">@Html.CheckBoxFor(m => m.RememberMe)</h3>
+                                <h3 class="float-left txtRemember">Remember me</h3>
+                            </div>
+                        </li>
+                    </ol>
+
+                    <h3 class="float-left txtSignTo">@Html.ActionLink("sign up", "register") </h3>
+                    <input class="float-right inputSign fxTime" type="submit" value="Sign in" />
+                </fieldset>
+            }
+        </div>
+
+    </div>
+</div>

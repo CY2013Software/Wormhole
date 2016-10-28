@@ -1,0 +1,91 @@
+﻿@model Musikall.Models.ReportModel
+
+@{
+    ViewBag.Title = "Report";
+}
+
+<h2>Report</h2>
+
+<fieldset>
+
+    <div class="display-label">
+         Mouth : @Model.StartTime.Month
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StartTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Sales)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sales)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Count)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Count)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DigitalSales)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DigitalSales)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DigitalCount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DigitalCount)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OrderCount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderCount)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserCount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserCount)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AvgCost)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AvgCost)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserAvgCost)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserAvgCost)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TotalPV)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalPV)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NewAlbum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NewAlbum)
+    </div>
+</fieldset>

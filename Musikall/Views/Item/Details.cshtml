@@ -1,0 +1,134 @@
+﻿@model Musikall.Models.Item
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.ItemName);
+}
+
+<div class="divAllAlbum">
+    <div class="divDetailHeader">
+        <div class="divDetailHeaderWrap">
+            <div class="divDetailHeaderInner">
+                <img src="@Url.Content(Model.ImageUrl)" alt="@Html.DisplayFor(model => model.ItemName)" class="float-left imgAlbumDetail txtNormal txtOpacity"
+                     onerror="this.style.border = '1px solid rgba(0, 0, 0, 0.32)'; this.onerror = null; this.src = '/Images/Cover/noAlbumCover.png'" />
+                <div class="float-left">
+                    <h1 class="float-left detailMargin txtNormal clear-fix">@Html.DisplayFor(model => model.ItemName)</h1>
+                    <a href="@Url.Action("details", "artist", new { id = Model.ArtistId }, null)" class="float-left detailMargin txtWhite clear-fix">@Html.DisplayFor(model => model.Artist.ArtistName)</a>
+                    <a class="float-left detailMargin txtWhite clear-fix">@Html.DisplayFor(model => model.Category.CategoryName)</a>
+                    <h3 class="float-left detailMarginYear txtOpacity txtNormal">/&nbsp;&nbsp;&nbsp;&nbsp;@Model.ReleaseDate.Value.ToString("MMM dd, yyyy")</h3>
+
+                    <div class="float-left clear-left">
+                        <div class="float-left detailMarginCD divBuyOption clear-left">
+
+                            @if (Model.HasEntity)
+                            {
+                                <input type="radio" name="buyOption" id="cd" class="float-left" checked />
+                                <label for="cd" class="float-left txtNormal txtBuyOption">CD for </label>
+                                <label for="cd" class="txtBuyOption txtRed">￥@Html.DisplayFor(model => model.Price)</label>
+                            }
+                            else
+                            {
+                                <input type="radio" name="buyOption" id="cd" class="float-left" disabled />
+                                <label for="cd" class="float-left txtNormal txtBuyOption">CD unavailable</label>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="float-left">
+                        <div class="float-left detailMarginCD divBuyOption clear-left">
+                            @if (Model.HasDigital)
+                            {
+                                if (!Model.HasEntity)
+                                {
+                                    <input type="radio" name="buyOption" id="flac" class="float-left" checked />
+                                    <label for="flac" class=" float-left txtNormal txtBuyOption">FLAC for </label>
+                                    <label for="flac" class="txtBuyOption txtRed">￥@Html.DisplayFor(model => model.DigitalPrice)</label>
+                                }
+                                else
+                                {
+                                    <input type="radio" name="buyOption" id="flac" class="float-left" />
+                                    <label for="flac" class=" float-left txtNormal txtBuyOption">FLAC for </label>
+                                    <label for="flac" class="txtBuyOption txtRed">￥@Html.DisplayFor(model => model.DigitalPrice)</label>
+                                }
+                            }
+                            else
+                            {
+                                <input type="radio" name="buyOption" id="flac" class="float-left" disabled />
+                                <label for="flac" class=" float-left txtNormal txtBuyOption">FLAC unavailable</label>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="float-left clear-left">
+                        <div class="float-left detailMarginCD divBuyButton clear-left">
+                            <a class="txtVerticalMid txtNormal aBuy fxTime">Buy now</a>
+                        </div>
+                    </div>
+
+                    <div class="float-left">
+                        <div class="float-left detailMarginCD divAddToCart clear-left">
+                            <a class="txtVerticalMid txtNormal aBuy fxTime" onclick="cdOrFlac()">Add to cart</a>
+                            
+                            <script type="text/javascript">
+                                function cdOrFlac() {
+                                    var isFlac;
+                                    if (document.getElementById("cd").checked) {
+                                        isFlac = false;
+                                    }
+
+                                    if (document.getElementById("flac").checked) {
+                                        isFlac = true;
+                                    }
+                                    var saveUrl = "@Url.Action("addItem", "shoppingcart", new { id = Model.Id}, null)" + "?isDigital=" + isFlac+"&returnUrl=@Request.Url.AbsolutePath";
+                                    window.location = saveUrl;
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="divAlbumDetailList">
+        <div class="divDetailHeaderInner">
+
+            <h2 class="float-left clear-fix">Songs</h2>
+
+            @if (Model.IsSingleAlbum)
+            {
+                <div class="divAlbumDetailListItem clear-fix">
+                    <h3 class="float-left marginTB">@Html.DisplayFor(model => Model.TrackId)</h3>
+                    <h3 class="float-left marginTB marginL">@Html.DisplayFor(model => Model.ItemName)</h3>
+                    <h3 class="float-right marginTB">@Html.DisplayFor(modelItem => Model.ItemName)</h3>
+                    <a href="@Url.Action("details", "artist", new { id = Model.ArtistId }, null)" class="float-right marginTB marginR">@Html.DisplayFor(model => Model.Artist.ArtistName)</a>
+                </div>
+            }
+
+            @foreach (var item in Model.SongList)
+            {
+                <div class="divAlbumDetailListItem clear-fix">
+                    <h3 class="float-left marginTB">@Html.DisplayFor(model => item.TrackId)</h3>
+                    <h3 class="float-left marginTB marginL">@Html.DisplayFor(model => item.ItemName)</h3>
+
+                    @if (item.HasDigital)
+                    {
+                        @Html.ActionLink("Add", "addItem", "shoppingcart", new { id = item.Id, isDigital = true, returnUrl = Request.Url.AbsolutePath }, new { @class = "float-right marginTB" })
+                        <h3 class="float-right marginTB txtRed marginR">￥@Html.DisplayFor(model => item.DigitalPrice)</h3>
+                        <h3 class="float-right marginTB marginR">@Html.DisplayFor(modelItem => item.Album.ItemName)</h3>
+                        <a href="@Url.Action("details", "artist", new { id = item.ArtistId }, null)" class="float-right marginTB marginR">@Html.DisplayFor(model => item.Artist.ArtistName)</a>
+                    }
+                    else
+                    {  
+                        <h3 class="float-right marginTB">@Html.DisplayFor(modelItem => item.Album.ItemName)</h3>
+                        <a href="@Url.Action("details", "artist", new { id = item.ArtistId }, null)" class="float-right marginTB marginR">@Html.DisplayFor(model => item.Artist.ArtistName)</a>
+                    }
+                </div>
+            }
+        </div>
+     </div>
+</div>
+

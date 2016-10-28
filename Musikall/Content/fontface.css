@@ -1,0 +1,7 @@
+﻿@font-face {
+    font-family: 'musikallFont';
+    src: url('../Font/Geosans.eot'),
+    url('../Font/Geosans.woff') format('woff'), 
+    url('../Font/Geosans.ttf') format('truetype'), 
+    url('../Font/Geosans.svg#Geosans') format('svg');
+}

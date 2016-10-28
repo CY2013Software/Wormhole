@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Musikall.Models.UserProfile>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            Order
+        </th>
+        <th>
+            Power
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+                @foreach (var powerName in Roles.GetRolesForUser(item.UserName))
+                {
+                    @Html.DisplayFor(modelItem => powerName) @:|
+                }
+            </td>
+
+            <td>
+                @if (User.IsInRole("Master") || !Roles.IsUserInRole(item.UserName, "Master"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                }
+                @if (User.IsInRole("Master") && User.Identity.Name != item.UserName)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
+
+</table>

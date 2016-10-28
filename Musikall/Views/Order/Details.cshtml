@@ -1,0 +1,12 @@
+﻿@model Musikall.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.IsManage = false;
+}
+
+@Html.Partial("_DetailsPartial")
+
+<p>
+    @Html.ActionLink("Back to List", "List")
+</p>

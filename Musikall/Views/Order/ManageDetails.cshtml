@@ -1,0 +1,14 @@
+﻿@model Tuple<Musikall.Models.UserData, Musikall.Models.Order>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>User : @Model.Item1.UserProfile.UserName</h2>
+
+
+@Html.Partial("_DetailsPartial", Model.Item2)
+
+<p>
+    @Html.ActionLink("Back to List", "ManageList", new { id = Model.Item1.Id })
+</p>

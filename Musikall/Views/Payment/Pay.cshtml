@@ -1,0 +1,27 @@
+﻿@model Musikall.Models.ShoppingCart
+
+@{
+    ViewBag.Title = "Pay";
+}
+
+<h2>Pay</h2>
+
+<p>Pay : @Model.TotalPrice</p>
+
+@using (Html.BeginForm("ConfirmPay", "Payment"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserData.UserProfile.DefaultCard.CardId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserData.UserProfile.DefaultCard.CardId)
+    </div>
+
+    
+    <fieldset>
+        <input type="submit" value="Confirm" />
+    </fieldset>
+}

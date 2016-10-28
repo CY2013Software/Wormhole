@@ -1,0 +1,94 @@
+﻿@using PagedList.Mvc
+
+@model PagedList.PagedList<Musikall.Models.Item>
+
+@{
+    ViewBag.Title = "All albums";
+}
+
+<div class="txtCentre divAllAlbum">
+    <div class="txtCentre divAllAlbumIndex">
+        <div class="divNewAlbumInner">
+            <a href="@Url.Action("index", "home", new {}, null)" class="float-left">Home</a>
+            <h3 class="float-left">&nbsp;&nbsp;>&nbsp;&nbsp;</h3>
+            <a href="@Url.Action("index", "item", new {}, null)" class="float-left">All</a>
+
+            @if (Model.Count() != 0)
+            {
+                if (ViewBag.Category != null)
+                {
+                    <h3 class="float-left">&nbsp;&nbsp;>&nbsp;&nbsp;</h3>
+                    <a href="@Url.Action("index", "item", new {category = ViewBag.Category}, null)" class="float-left">@ViewBag.Category</a>
+                }
+
+                <div class="float-left divWhiteLine"></div>
+                <h3 class="float-right">
+                    @Html.PagedListPager(Model, page => Url.Action("index", new { page }), Musikall.CustomStyleConfig.customPage)
+                </h3>
+
+            }
+            else
+            {
+                if (ViewBag.Category != null)
+                {
+                    <h3 class="float-left">&nbsp;&nbsp;>&nbsp;&nbsp;</h3>
+                    <a href="@Url.Action("index", "item", new {category = ViewBag.Category}, null)" class="float-left">@ViewBag.Category</a>
+                }
+
+                <div class="float-left divWhiteLine"></div>
+
+                <img src="/Images/Cover/noAlbumCover.png" alt="No album" class="txtCentre imgAllAlbumList marginTB" />
+                <h2 class="txtCentre">Nothing here (T-T)</h2>
+            }
+
+        </div>
+    </div>
+
+    <div class="divNewAlbum divAllAlbumListWrap">
+        @foreach (var item in Model)
+        {
+            if (item.IsAlbum)
+            {
+                <a href="@Url.Action("details", "item", new{id=item.Id})" class="float-left aAllAlbumItem fxTime">
+                    <img src="@Url.Content(item.ImageUrl)" alt="@Html.DisplayFor(model => item.ItemName)" class="float-left imgAllAlbumList"
+                         onerror="this.style.border = '1px solid rgba(0, 0, 0, 0.32)'; this.onerror = null; this.src = '/Images/Cover/noAlbumCover.png'" />
+
+                    @if (item.HasEntity)
+                    {
+                        <h3 class="float-left clear-fix txtAlbumList txtRed">￥@Html.DisplayFor(modelItem => item.Price) for CD</h3>
+                    }
+                    else
+                    {
+                        <h3 class="float-left clear-fix txtAlbumList">&nbsp;(CD unavailable)</h3>
+                    }
+
+                    @if (item.HasDigital)
+                    {
+                        <h3 class="float-left clear-fix txtAlbumList txtRed">￥@Html.DisplayFor(modelItem => item.DigitalPrice) for FLAC</h3>
+                    }
+                    else
+                    {
+                        <h3 class="float-left clear-fix txtAlbumList">&nbsp;(FLACunavailable)</h3>
+                    }
+
+                    <h3 class="float-left clear-fix txtAlbumList">@Html.DisplayFor(model => item.ItemName) &nbsp;</h3>
+                    <h3 class="float-left clear-fix txtAlbumList">@Html.DisplayFor(model => item.Artist.ArtistName) &nbsp;</h3>
+                </a>
+            }
+        }
+    </div>
+
+    <div class="txtCentre divAllAlbumIndex">
+        <div class="divNewAlbumInner">
+
+            @if (Model.Count() != 0)
+            {
+                <h3 class="float-right">
+                    @Html.PagedListPager(Model, page => Url.Action("index", new { page }), Musikall.CustomStyleConfig.customPage)
+                </h3>
+                <div class="float-left divWhiteLine"></div>
+            }
+        </div>
+    </div>
+</div>
+

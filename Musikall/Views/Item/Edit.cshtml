@@ -1,0 +1,149 @@
+﻿@model Musikall.Models.Item
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Item", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Item</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ItemName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ItemName)
+            @Html.ValidationMessageFor(model => model.ItemName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DigitalPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DigitalPrice)
+            @Html.ValidationMessageFor(model => model.DigitalPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HasDigital)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HasDigital)
+            @Html.ValidationMessageFor(model => model.HasDigital)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HasEntity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HasEntity)
+            @Html.ValidationMessageFor(model => model.HasEntity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TrackId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TrackId)
+            @Html.ValidationMessageFor(model => model.TrackId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Introduction)
+            @Html.ValidationMessageFor(model => model.Introduction)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ReleaseDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ReleaseDate)
+            @Html.ValidationMessageFor(model => model.ReleaseDate)
+        </div>
+
+        <div class="editor-label">
+            Upload Cover
+        </div>
+        <div class="editor-label">
+            Server File : @Model.ImageUrl;
+        </div>
+        <div class="editor-field">
+            <input type="file" name="image" />
+        </div>
+
+        <div class="editor-label">
+            Upload Audition
+        </div>
+        <div class="editor-label">
+            Server File : @Model.AuditionUrl;
+        </div>
+        <div class="editor-field">
+            <input type="file" name="audition" />
+        </div>
+
+        <div class="editor-label">
+            Upload Download File
+        </div>
+        <div class="editor-label">
+            Server File : @Model.DLUrl;
+        </div>
+        <div class="editor-field">
+            <input type="file" name="download" />
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AlbumId, "Album")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AlbumId", String.Empty)
+            @Html.ValidationMessageFor(model => model.AlbumId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ArtistId, "Artist")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ArtistId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ArtistId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId, "Category")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,145 @@
+﻿@model Musikall.Models.UserProfile
+@using Musikall.Models
+
+@{
+    ViewBag.Title = "Account";
+    ViewBag.isAccount = true;
+}
+
+@Html.Partial("_AccountPartial")
+
+
+<div class="divAccount">
+    <div class="clear-fix">
+        <img src="@Url.Content(@User.Identity.GetUserProfile().AvatarUrl)" alt="Avatar" class="imgAvatar imgAccountAvatar fxTime"
+             onerror="this.onerror = null; this.src = '/Images/Avatar/defaultAvatar.png'" />
+    </div>
+    <h1>@User.Identity.GetUserProfile().UserName</h1>
+    <h2 class="marginTBM">@User.Identity.GetUserProfile().Email</h2>
+
+    <a href="@Url.Action("modifyavatar", new { returnUrl = @Request.Url.AbsolutePath })" class="clear-fix">Change avatar</a>
+</div>
+
+<div class="txtCentre divAllAlbumIndex">
+    <div class="divNewAlbumInner">
+        <div class="float-left clear-fix divAddress">
+            <h3 class="float-left clear-fix marginTB">Address books</h3>
+            <a href="@Url.Action("addaddress", new {returnUrl = @Request.Url.AbsolutePath })" class="float-left marginL marginTB">＋Address</a>
+            @foreach (var item in Model.AddressBooks)
+            {
+                var isDefault = Model.IsDefaultAddress(item) ? "0 1px 12px rgba(17, 165, 182, 0.72)" : "none";
+                <table style="box-shadow: @isDefault" class="float-left clear-fix tbAddress">
+                    <tr>
+                        <td class="tdAddress0">
+                            <h3 class="float-left">Full name:</h3>
+                        </td>
+                        <td class="tdAddress1">
+                            <h3 class="float-left marginLS">@item.FullName</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdAddress0">
+                            <h3 class="float-left">Phone:</h3>
+                        </td>
+                        <td class="tdAddress1">
+                            <h3 class="float-left marginLS">@item.Phone</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdAddress0">
+                            <h3 class="float-left">Address:</h3>
+                        </td>
+                        <td class="tdAddress1">
+                            <h3 class="float-left marginLS">@item.Address</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdEdit tdAddress0">
+                            @if (!Model.IsDefaultAddress(item))
+                            {
+                                <a href="@Url.Action("setdefaultaddress", new { id = item.Id, returnUrl = @Request.Url.AbsolutePath })" class="float-left">Set as default</a>
+                            }
+                            else
+                            {
+                                <h3 class="float-left">(Default address)</h3>
+                            }
+                        </td>
+                        <td class="tdEdit tdAddress1">
+                            <a href="@Url.Action("modifyaddress", new { id = item.Id, returnUrl = @Request.Url.AbsolutePath })" class="float-right">Edit</a>
+                            <a href="@Url.Action("deleteaddress", new { id = item.Id, returnUrl = @Request.Url.AbsolutePath })" class="float-right marginR">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="txtCentre divAllAlbumIndex">
+    <div class="divNewAlbumInner">
+        <div class="float-left clear-fix divAddress">
+            <h3 class="float-left clear-fix marginTB">Payments</h3>
+            <a href="@Url.Action("addcard", new {returnUrl = @Request.Url.AbsolutePath })" class="float-left marginL marginTB">＋Payment</a>
+            @foreach (var item in Model.CardDetailsSet)
+            {
+                var isDefault = Model.IsDefaultCard(item) ? "0 1px 12px rgba(17, 165, 182, 0.72)" : "none";
+                <table style="box-shadow: @isDefault" class="float-left clear-fix tbAddress">
+                    <tr>
+                        <td class="tdAddress0">
+                            <h3 class="float-left">@item.BankName</h3>
+                        </td>
+                        <td class="tdAddress1">
+                            <h3 class="float-left marginLS">@item.DisplayCardId</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdEdit tdAddress0">
+                            @if (!Model.IsDefaultCard(item))
+                            {
+                                <a href="@Url.Action("setdefaultcard", new { id = item.Id, returnUrl = @Request.Url.AbsolutePath })" class="float-left">Set as payment</a>
+                            }
+                            else
+                            {
+                                <h3 class="float-left">(Default payment)</h3>
+                            }
+                        </td>
+                        <td class="tdEdit tdAddress1">
+                            <a href="@Url.Action("deletecard", new {id = item.Id, returnUrl = @Request.Url.AbsolutePath })" class="float-right">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="marginB"></div>
+
+
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        You are
+        @foreach (var powerName in Roles.GetRolesForUser())
+        {
+            @powerName @:|
+        }.
+    </p>
+    <p>
+        @Html.ActionLink("Add Album (Admin)", "Create", "Item", new { }, null)
+    </p>
+    <p>
+        @Html.ActionLink("Add Artist (Admin)", "Create", "Artist", new { }, null)
+    </p>
+    <p>
+        @Html.ActionLink("User List (Admin)", "Index", "User", new { }, null)
+    </p>
+    <p>
+        @Html.ActionLink("View Report (Admin)", "Index", "Report", new { }, null)
+    </p>
+    <p>
+        @Html.ActionLink("View Data Check (Admin)", "DataCheck", "Report", new { }, null)
+    </p>
+}
+

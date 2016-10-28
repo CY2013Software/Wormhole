@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+@*显示单曲*@
+
+@if (ViewBag.SingleResults != null)
+{
+
+    if ((ViewBag.SingleResults as PagedList.PagedList<Musikall.Models.Item>).Count() == 0)
+    {
+        <h3>No Single</h3>
+    }
+    else
+    {
+        <h2>Single</h2>
+
+        <table>
+
+            @foreach (var item in ViewBag.SingleResults as PagedList.PagedList<Musikall.Models.Item>)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Album.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Artist.ArtistName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Item", new { id = item.IsAlbum ? item.Id : item.AlbumId }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}
+
+@if (ViewBag.AlbumResults != null)
+{
+    @*显示专辑*@
+
+    if ((ViewBag.AlbumResults as PagedList.PagedList<Musikall.Models.Item>).Count() == 0)
+    {
+        <h3>No Album</h3>
+    }
+    else
+    {
+        <h2>Album</h2>
+
+        <table>
+
+            @foreach (var item in ViewBag.AlbumResults as PagedList.PagedList<Musikall.Models.Item>)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Artist.ArtistName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Item", new { id = item.Id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}
+
+@if (ViewBag.ArtistResults != null)
+{
+
+    @*显示艺术家*@
+
+    if ((ViewBag.ArtistResults as PagedList.PagedList<Musikall.Models.Artist>).Count() == 0)
+    {
+        <h3>No Artist</h3>
+    }
+    else
+    {
+        <h2>Artist</h2>
+
+        <table>
+
+            @foreach (var item in ViewBag.ArtistResults as PagedList.PagedList<Musikall.Models.Artist>)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtistName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Introduction)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Artist", new { id = item.Id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}
+
+

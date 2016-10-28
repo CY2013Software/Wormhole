@@ -1,0 +1,70 @@
+﻿@model Musikall.Models.Order
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Order</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.OrderId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderId)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.TotalPrice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalPrice)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.CreateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemRecordSets.FirstOrDefault().ItemRecord.Item.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemRecordSets.FirstOrDefault().ItemRecord.HistoryPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemRecordSets.FirstOrDefault().ItemRecord.IsDigital)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemRecordSets.FirstOrDefault().Count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemRecordSets.FirstOrDefault().TotalPrice)
+            </th>
+        </tr>
+
+        @foreach (var item in Model.ItemRecordSets)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemRecord.Item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemRecord.HistoryPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemRecord.IsDigital)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+            </tr>
+        }
+    </table>
+
+</fieldset>

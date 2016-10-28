@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Musikall</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/musikall")
+</head>
+
+<body>
+    <div class="content-wrapper" id="divEmptyHeader"></div>
+
+    <header>
+        <div class="content-wrapper" id="divHeader">
+            <div class="float-left divHeaderLeft">
+                @Html.ActionLink(" ", "index", "home", new { }, new { @class = "float-left", @id = "aLogoWrapper", @style = "background-image: url('/Images/icon_logo.png')" })
+                <div class="float-left divSortTab">
+                    <a href="@Url.Action("index", "home", new {}, null)" class="txtVerticalMid txtWhite" id="txtLogo">Musikall</a>
+                </div>
+
+                <div class="float-left divSortTab divSortMargin" id="divAll">
+                    <a href="@Url.Action("index", "item", new {}, null)" class="txtVerticalMid txtWhite">All</a>
+                </div>
+
+                <div class="float-left divSortTab divSortMarginLeft">
+                    <a href="@Url.Action("index", "item", new {category = "Rock"}, null)" class="txtVerticalMid txtWhite">Rock</a>
+                </div>
+                <div class="float-left divSortTab divSortMarginLeft">
+                    <a href="@Url.Action("index", "item", new { category = "Electronic" }, null)" class="txtVerticalMid txtWhite">Electronic</a>
+                </div>
+                <div class="float-left divSortTab divSortMarginLeft">
+                    <a href="@Url.Action("index", "item", new { category = "Pop" }, null)" class="txtVerticalMid txtWhite">Pop</a>
+                </div>
+                <div class="float-left divSortTab divSortMarginLeft">
+                    <a href="@Url.Action("index", "item", new { category = "Classic" }, null)" class="txtVerticalMid txtWhite">Classic</a>
+                </div>
+                <div class="float-left divSortTab divSortMarginLeft">
+                    <a href="@Url.Action("index", "item", new { category = "Others" }, null)" class="txtVerticalMid txtWhite">Others</a>
+                </div>
+            </div>
+
+            <div class="float-right divHeaderRight">
+                <div class="float-right" id="divSearch">
+                    <div id="divSearchWrap">
+                        <input id="inputSearch" type="text" name="searchBar" placeholder="Title, artist or album" style="background-image: url('/Images/icon_search.png')" />
+                    </div>
+                </div>
+
+                @Html.ActionLink(" ", "manage", "shoppingcart", new { }, new { @class = "float-right fxTime divAccountMargin", @id = "aCart" })
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </header>
+
+    <div id="body">
+        @RenderBody()
+    </div>
+
+    <footer id="footer">
+        <div class="content-wrapper divSortTab" id="divFooter">
+            <h4 class="txtVerticalMid txtCentre txtWhite">&copy; @DateTime.Now.Year Musikall Inc.</h4>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

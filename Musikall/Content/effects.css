@@ -1,0 +1,36 @@
+﻿.fxTime {
+    -webkit-transition: .3s;
+	-o-transition: .3s;
+	transition: .3s;
+}
+
+#aCart:hover {
+    background-image:url("/Images/icon_cart_hover.png");
+}
+
+.aAllAlbumItem:hover {
+    border-radius:4px;
+    border:1px solid #16dcf2;
+}
+
+.aBuy:hover {
+    color:#ffffff;
+    border-radius:4px;
+    background-color:#11a5b6;
+    box-shadow:0 3px 16px rgba(17, 165, 182, 0.72);
+}
+
+.inputSign:hover {
+    background-color:#11a5b6;
+    box-shadow:0 3px 16px rgba(17, 165, 182, 0.72);
+}
+
+.imgAvatar:hover {
+    box-shadow:0 3px 16px rgba(17, 165, 182, 0.72);
+}
+
+.divAvatar:hover .divAvatarDrop{
+    box-shadow:0 3px 16px rgba(17, 165, 182, 0.72);
+    visibility:visible;
+    opacity:1;
+}

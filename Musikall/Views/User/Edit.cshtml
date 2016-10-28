@@ -1,0 +1,62 @@
+﻿@model Musikall.Models.UserEditModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>UserProfile</legend>
+
+        @Html.HiddenFor(model => model.User.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.User.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.User.UserName)
+            @Html.ValidationMessageFor(model => model.User.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.User.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.User.Email)
+            @Html.ValidationMessageFor(model => model.User.Email)
+        </div>
+
+        @if (User.IsInRole("Master") && User.Identity.Name != Model.User.UserName)
+        {
+            <div class="editor-label">
+                Admin Power
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.IsAdmin)
+                @Html.ValidationMessageFor(model => model.IsAdmin)
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.IsAdmin)
+        }
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

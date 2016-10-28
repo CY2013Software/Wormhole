@@ -1,0 +1,43 @@
+﻿<div class="txtCentre divAllAlbumIndex">
+    <div class="divNewAlbumInner">
+
+
+        @if (ViewBag.isAccount != null && ViewBag.isAccount)
+        {
+            <a href="@Url.Action("overall", "account")" class="float-left" style="border-bottom: 2px solid #16dcf2">Account</a>
+        }
+        else
+        {
+            <a href="@Url.Action("overall", "account")" class="float-left">Account</a>
+        }
+
+        @if (ViewBag.isOrder != null && ViewBag.isOrder)
+        {
+            <a href="@Url.Action("list", "order", new {}, null)" class="float-left marginL" style="border-bottom: 2px solid #16dcf2">Order</a>
+        }
+        else
+        {
+            <a href="@Url.Action("list", "order", new {}, null)" class="float-left marginL">Order</a>
+        }
+
+        @if (ViewBag.isMyDigital != null && ViewBag.isMyDigital)
+        {
+            <a href="@Url.Action("index", "owneddigitalitem", new { }, null)" class="float-left marginL" style="border-bottom: 2px solid #16dcf2">My digital music</a>
+        }
+        else
+        {
+            <a href="@Url.Action("index", "owneddigitalitem", new { }, null)" class="float-left marginL">My digital music</a>
+        }
+
+        @if (ViewBag.isCart != null && ViewBag.isCart)
+        {
+            <a href="@Url.Action("manage", "shoppingcart", new { }, null)" class="float-right" style="border-bottom: 2px solid #16dcf2">Cart</a>
+        }
+        else
+        {
+            <a href="@Url.Action("manage", "shoppingcart", new { }, null)" class="float-right">Cart</a>
+        }
+
+        <div class="float-left divWhiteLine"></div>
+    </div>
+</div>

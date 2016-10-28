@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+
+@model Musikall.Models.ShoppingCart
+
+@{
+    ViewBag.Title = "Cart";
+    ViewBag.isCart = true;
+    var defaultBank = Model.UserData.UserProfile.DefaultCard;
+    var defaultAddress = Model.UserData.UserProfile.DefaultAddress;
+}
+
+@Html.Partial("_AccountPartial")
+
+@if (Model.ItemSets.Count == 0)
+{
+    <div>
+        <img src="/Images/icon_cart_empty.png" alt="Empty cart" class="txtCentre imgAllAlbumList marginTB clear-fix" />
+        <h2 class="txtCentre">Nothing here (T-T)</h2>
+    </div>
+}
+else
+{
+    <div class="txtCentre divAllAlbumIndex">
+        <div class="divNewAlbumInner">
+            <div class="float-left clear-fix divCart">
+                <table style="border: 1px solid rgba(0, 0, 0, 0.14)" class="float-left clear-fix tbAddress">
+                    <tr>
+                        <td class="tdCart1 tdList">
+                            <h3 class="float-left">Items</h3>
+                        </td>
+                        <td class="tdCart2 tdList">
+                            <h3 class="float-left">Type</h3>
+                        </td>
+                        <td class="tdCart3 tdList">
+                            <h3 class="float-left">Price</h3>
+                        </td>
+                        <td class="tdCart4 tdList">
+                            <h3 class="float-left">Amount</h3>
+                        </td>
+                        <td class="tdCart5 tdList">
+                            <h3 class="float-left">Total</h3>
+                        </td>
+                        <td class="tdCart6 tdList">
+                            <a class="float-right">Action</a>
+                        </td>
+                    </tr>
+
+                    <tr><td></td></tr>
+
+                    @foreach (var item in Model.ItemSets)
+                    {
+                        <tr>
+                            <td class="tdCart1">
+                                <h3 class="float-left">@Html.DisplayFor(modelItem => item.Item.ItemName)</h3>
+                            </td>
+                            <td class="tdCart2">
+                                @if (item.IsDigital)
+                                {
+                                    <h3 class="float-left">FLAC</h3>
+                                }
+                                else
+                                {
+                                    <h3 class="float-left">CD</h3>
+                                }
+                            </td>
+                            <td class="tdCart3">
+                                <h3 class="float-left txtRed">￥@Html.DisplayFor(modelItem => item.Price)</h3>
+                            </td>
+                            <td class="tdCart4">
+                                <h3 class="float-left">@Html.DisplayFor(modelItem => item.Count)</h3>
+                            </td>
+                            <td class="tdCart5">
+                                <h3 class="float-left txtRed">￥@Html.DisplayFor(modelItem => item.TotalPrice)</h3>
+                            </td>
+                            <td class="tdCart6">
+                                <a href="@Url.Action("deleteItem", "shoppingcart", new { id = item.ItemId })" class="float-right">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="txtCentre divAllAlbumIndex">
+        <div class="divNewAlbumInner">
+            <div class="float-left clear-fix divCart">
+                <table class="float-left clear-fix tbAddress tbPay">
+                    <tr>
+                        <td class="tdPay1">
+                            <h3 class="float-left">@defaultBank.BankName</h3>
+                        </td>
+                        <td class="tdPay2">
+                            <h3 class="float-left">@defaultBank.CardId</h3>
+                        </td>
+                        <td class="tdPay3">
+                            <a class="float-right" >Change payment</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdPay1">
+                            <h3 class="float-left">@defaultAddress.FullName</h3>
+                        </td>
+                        <td class="tdPay2">
+                            <h3 class="float-left">@defaultAddress.Address</h3>
+                        </td>
+                        <td class="tdPay3">
+                            <a class="float-right">Change address</a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="float-left divWhiteLine"></div>
+                @if (Model.ItemSets.Count != 0)
+                {
+                    <a href="@Url.Action("buy", "buy")" class="float-right">Buy now</a>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

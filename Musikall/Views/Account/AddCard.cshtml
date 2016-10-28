@@ -1,0 +1,57 @@
+﻿@model Musikall.Models.CardDetails
+
+@{
+    ViewBag.Title = "AddCard";
+}
+
+<h2>Addv Modify Debit/Credit Card Infimation</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CardId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CardId)
+            @Html.ValidationMessageFor(model => model.CardId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CardName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CardName)
+            @Html.ValidationMessageFor(model => model.CardName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Phone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdentityId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IdentityId)
+            @Html.ValidationMessageFor(model => model.IdentityId)
+        </div>
+
+        <p>
+            <input type="submit" value="Bind" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

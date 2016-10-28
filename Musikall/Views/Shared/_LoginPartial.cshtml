@@ -1,0 +1,42 @@
+﻿@using Musikall.Models
+
+@if (Request.IsAuthenticated)
+{
+    if (@User.Identity.GetUserProfile() != null)
+    {
+        <div class="float-right divSortTab divAccountMargin divAvatar">
+            <a class="float-left clear-fix aAvatar">
+                <img src="@Url.Content(@User.Identity.GetUserProfile().AvatarUrl)" alt="Avatar" class="imgAvatar fxTime"
+                     onerror="this.onerror = null; this.src = '/Images/Avatar/defaultAvatar.png'" />
+            </a>
+            <div class="float-left clear-fix divAvatarDrop fxTime">
+                <a href="@Url.Action("overall", "account")" class="float-left aSignOut clear-fix" style="background-image: url('/Images/icon_signIn.png')">
+                    @User.Identity.GetUserProfile().UserName
+                </a>
+                @using (Html.BeginForm("logoff", "account", FormMethod.Post, new { @class = "float-left clear-fix aSignOut", @id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a class="txtVerticalMid aSignOut" href="javascript:document.getElementById('logoutForm').submit()" style="background-image: url('/Images/icon_signOut.png')">
+                        Sign out
+                    </a>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        using (Html.BeginForm("logoff", "account", FormMethod.Post, new { @id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="float-right divSortTab divAccountMargin">
+                <a class="txtVerticalMid txtWhite" href="javascript:document.getElementById('logoutForm').submit()" >Sign out</a>
+            </div>
+        }
+    }
+}
+else
+{
+    <div class="float-right divSortTab divAccountMargin">
+        @Html.ActionLink("Sign in", "login", "account", null, new { @class = "txtVerticalMid txtWhite" })
+    </div>
+}

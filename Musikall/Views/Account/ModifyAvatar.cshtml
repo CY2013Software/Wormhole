@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Modify Avatar";
+}
+
+<h2>Modify Avatar</h2>
+
+@using (Html.BeginForm("ModifyAvatar", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <div class="editor-label">
+            <img src="@Url.Content(ViewBag.AvatarUrl)" width="200" alt="No avatar" />
+        </div>
+        <div class="editor-label">
+            <input type="file" name="image" />
+        </div>
+        <p>
+            <input type="submit" value="Confirm" />
+        </p>
+</fieldset>
+}
