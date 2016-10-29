@@ -13,7 +13,6 @@ namespace Musikall.Controllers
     public class UserController : Controller
     {
         private MKContext db = new MKContext();
-        //
         // GET: /User/
         [Authorize(Roles = "Admin")]
         public ActionResult Index(int ? page)
